@@ -1,0 +1,16 @@
+import subprocess
+
+#change the ip here. The last 8 bits are cycled through inside the function
+hosts = "10.241.31."
+active = []
+
+def hostsweep(initial):
+    list_of_active_hosts = []
+    for x in range(0,3):
+        if (subprocess.run(["ping","-n","1",f"{initial}{x}"]).returncode) == 0:
+            yield f"{initial}{x}"
+
+    
+for a in hostsweep(hosts):
+    print(a)
+    active.append(a)
